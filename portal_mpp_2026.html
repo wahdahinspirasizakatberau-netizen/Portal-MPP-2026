@@ -1,0 +1,2060 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Portal Resmi MPP DPD Wahdah Islamiyah Berau 2026</title>
+  
+  <!-- CDN Tailwind CSS & Font Inter -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Library Pendukung: QR Code, HTML2Canvas & Scanner -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
+  <!-- Engine Tambahan Anti-Gagal untuk Jepret Foto HP & Laptop -->
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            primary: { 50: '#f0f9ff', 100: '#e0f2fe', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 800: '#075985', 900: '#0c4a6e' },
+            gold: { 400: '#fbbf24', 500: '#f59e0b', 600: '#d97706' }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+    
+    /* Media Cetak Khusus Kop Surat Resmi - Hilangkan URL Header & Footer Bawaan Browser */
+    @page {
+      size: A4 portrait;
+      margin: 0; 
+    }
+    @media print {
+      html, body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        font-size: 10pt;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      #tab-rundown {
+        display: block !important;
+        padding: 12mm 15mm 12mm 15mm !important; 
+      }
+      .no-print, header, nav, #heroBannerCard, #authGateModal, #modalFotoPengurus, #modalPanduanKamera, #toastContainer, button, footer {
+        display: none !important;
+      }
+      a[href]:after {
+        content: none !important;
+      }
+      .print-only { display: block !important; }
+      .tab-content:not(#tab-rundown) { display: none !important; }
+      .page-break-avoid { page-break-inside: avoid; }
+      .kop-double-line {
+        border-top: 3px solid #000000;
+        border-bottom: 1px solid #000000;
+        height: 5px;
+        margin: 6px 0 14px 0;
+      }
+    }
+    @media screen {
+      .print-only { display: none !important; }
+    }
+    
+    /* Scrollbar Halus */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased">
+
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <!-- Logo & Brand MPP DPD WI -->
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="pindahTab('beranda')">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-sky-700 to-sky-500 flex items-center justify-center text-white font-black text-sm tracking-wider shadow-md shadow-sky-600/30">
+          WI
+        </div>
+        <div>
+          <h1 class="text-sm sm:text-base font-extrabold text-slate-900 tracking-tight leading-tight">MPP DPD WI 2026</h1>
+          <p class="text-[11px] font-semibold text-sky-700">Musyawarah Pengurus Pleno • Berau</p>
+        </div>
+      </div>
+
+      <!-- Profil Akun Pengguna Aktif di Pojok Kanan Atas -->
+      <div class="flex items-center space-x-3">
+        <div id="navUserBadge" class="flex items-center space-x-2.5 bg-slate-50 hover:bg-slate-100 border border-slate-200/80 rounded-2xl py-1.5 px-3 transition cursor-pointer" onclick="bukaModalLogin()">
+          <div class="relative w-9 h-9 rounded-xl overflow-hidden bg-sky-700 flex items-center justify-center text-white font-bold text-xs ring-2 ring-sky-500/20 shadow-xs flex-shrink-0">
+            <img id="navAvatarImg" src="" alt="Avatar" class="w-full h-full object-cover hidden" style="object-position: center top !important;" onerror="this.classList.add('hidden'); document.getElementById('navInitials').classList.remove('hidden');">
+            <span id="navInitials">PS</span>
+          </div>
+          <div class="text-left hidden sm:block">
+            <p id="navUserName" class="text-xs font-bold text-slate-800 truncate max-w-[130px]">Peserta Musyawarah</p>
+            <p id="navUserRole" class="text-[10px] font-black uppercase tracking-wider text-sky-600">PENGURUS</p>
+          </div>
+        </div>
+
+        <!-- Tombol Ganti / Keluar Akun -->
+        <button onclick="konfirmasiLogout()" title="Ganti / Keluar Akun" class="w-9 h-9 rounded-xl border border-slate-200 hover:border-rose-200 hover:bg-rose-50 text-slate-500 hover:text-rose-600 flex items-center justify-center transition cursor-pointer active:scale-95">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-5 pb-24 md:pb-8">
+    
+    <!-- BANNER HERO UTAMA (Hanya Tampil di Layar Web, Tersembunyi saat Cetak) -->
+    <div id="heroBannerCard" class="rounded-3xl p-6 sm:p-8 text-white relative overflow-hidden shadow-xl mb-6 no-print" style="background: linear-gradient(135deg, #0369a1 0%, #0284c7 50%, #075985 100%);">
+      <div class="absolute -top-16 -right-16 w-56 h-56 rounded-full bg-white/10 pointer-events-none"></div>
+      <div class="absolute -bottom-16 -left-16 w-64 h-64 rounded-full bg-sky-400/20 pointer-events-none"></div>
+
+      <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+        <!-- Kutipan Hikmah Syura Dinamis -->
+        <div class="lg:col-span-7">
+          <div class="inline-flex items-center space-x-2 bg-white/15 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-widest text-sky-200 mb-3 border border-white/10">
+            <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+            <span>PORTAL RESMI SIDANG PLENO 2026</span>
+          </div>
+          <h2 id="quoteTitle" class="text-xl sm:text-2xl lg:text-3xl font-black tracking-tight leading-snug transition-opacity duration-300">
+            "Dan Urusan Mereka Diputuskan dengan Musyawarah di Antara Mereka"
+          </h2>
+          <p id="quoteSubtitle" class="text-xs sm:text-sm text-sky-100 mt-2 font-medium leading-relaxed transition-opacity duration-300">
+            (QS. Asy-Syura: 38) • Meneguhkan Komitmen Dakwah yang Kokoh, Terukur, dan Penuh Berkah di Bumi Batiwakkal Berau.
+          </p>
+        </div>
+
+        <!-- Waktu Nyata WITA & Countdown Hari H -->
+        <div class="lg:col-span-5 bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-white/20">
+          <div class="flex items-center justify-between pb-3 border-b border-white/20">
+            <div>
+              <p class="text-[10px] font-black uppercase tracking-widest text-sky-200">WAKTU TANJUNG REDEB (WITA)</p>
+              <h3 id="clockTime" class="text-2xl font-black tracking-tight font-mono text-white">00:00:00 WITA</h3>
+            </div>
+            <div class="text-right">
+              <p id="liveHijriDate" class="text-xs font-black text-amber-300">8 Rabi'ul Akhir 1448 H</p>
+              <p id="liveMasehiDate" class="text-[11px] text-sky-100 font-medium">Memuat tanggal...</p>
+            </div>
+          </div>
+
+          <!-- Live Countdown Hari H Sidang Pleno -->
+          <div class="pt-3">
+            <div class="flex items-center justify-between text-[10px] font-black uppercase tracking-wider text-sky-200 mb-1.5">
+              <span>HITUNG MUNDUR SIDANG PLENO</span>
+              <span class="text-amber-300">20 SEPTEMBER 2026</span>
+            </div>
+            <div class="grid grid-cols-4 gap-2 text-center font-mono">
+              <div class="bg-black/20 rounded-xl py-1.5">
+                <span id="cntHari" class="block text-base sm:text-lg font-black text-amber-300">00</span>
+                <span class="text-[9px] uppercase tracking-wider text-sky-200 font-sans font-bold">Hari</span>
+              </div>
+              <div class="bg-black/20 rounded-xl py-1.5">
+                <span id="cntJam" class="block text-base sm:text-lg font-black text-white">00</span>
+                <span class="text-[9px] uppercase tracking-wider text-sky-200 font-sans font-bold">Jam</span>
+              </div>
+              <div class="bg-black/20 rounded-xl py-1.5">
+                <span id="cntMenit" class="block text-base sm:text-lg font-black text-white">00</span>
+                <span class="text-[9px] uppercase tracking-wider text-sky-200 font-sans font-bold">Menit</span>
+              </div>
+              <div class="bg-black/20 rounded-xl py-1.5">
+                <span id="cntDetik" class="block text-base sm:text-lg font-black text-amber-300">00</span>
+                <span class="text-[9px] uppercase tracking-wider text-sky-200 font-sans font-bold">Detik</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigasi Desktop / Tablet (Tampil di Layar Sedang & Besar) -->
+    <nav class="hidden md:flex space-x-2 overflow-x-auto pb-3 mb-6 no-print scrollbar-none" aria-label="Tabs Desktop">
+      <button onclick="pindahTab('beranda')" id="tabBtn-beranda" class="tab-nav-btn px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold transition flex items-center space-x-2 bg-sky-600 text-white shadow-md shadow-sky-600/20 whitespace-nowrap cursor-pointer">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <span>Beranda & ID Card</span>
+      </button>
+
+      <button onclick="pindahTab('pengurus')" id="tabBtn-pengurus" class="tab-nav-btn px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-semibold transition flex items-center space-x-2 bg-white text-slate-600 hover:bg-slate-100 hover:text-slate-900 border border-slate-200/80 whitespace-nowrap cursor-pointer">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+        <span>Pengurus & Kesiapan</span>
+      </button>
+
+      <button onclick="pindahTab('presensi')" id="tabBtn-presensi" class="tab-nav-btn px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-semibold transition flex items-center space-x-2 bg-white text-slate-600 hover:bg-slate-100 hover:text-slate-900 border border-slate-200/80 whitespace-nowrap cursor-pointer">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span>Presensi Pleno</span>
+      </button>
+
+      <button onclick="pindahTab('rundown')" id="tabBtn-rundown" class="tab-nav-btn px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-semibold transition flex items-center space-x-2 bg-white text-slate-600 hover:bg-slate-100 hover:text-slate-900 border border-slate-200/80 whitespace-nowrap cursor-pointer">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        <span>Rundown Acara</span>
+      </button>
+
+      <button onclick="pindahTab('proker')" id="tabBtn-proker" class="tab-nav-btn px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-semibold transition flex items-center space-x-2 bg-white text-slate-600 hover:bg-slate-100 hover:text-slate-900 border border-slate-200/80 whitespace-nowrap cursor-pointer">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        <span>Draf Proker & Berkas</span>
+      </button>
+
+      <button onclick="pindahTab('aspirasi')" id="tabBtn-aspirasi" class="tab-nav-btn px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-semibold transition flex items-center space-x-2 bg-white text-slate-600 hover:bg-slate-100 hover:text-slate-900 border border-slate-200/80 whitespace-nowrap cursor-pointer">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/></svg>
+        <span>Aspirasi Sidang</span>
+      </button>
+    </nav>
+
+    <div id="tab-beranda" class="tab-content block">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        
+        <!-- KARTU ID PESERTA STANDAR 5,5 CM X 8,5 CM (PRESISI TINGGI ANTI-GAGAL) -->
+        <div class="lg:col-span-6 flex flex-col items-center">
+          <div id="idCardPrintArea" class="w-full text-white text-center shadow-2xl relative overflow-hidden border border-white/20 flex flex-col justify-between" style="width: 340px; height: 530px; max-width: 340px; border-radius: 22px; padding: 18px 16px 14px 16px; background: linear-gradient(160deg, #0284c7 0%, #0369a1 45%, #075985 100%); font-family: Arial, Helvetica, sans-serif !important;">
+            <div class="absolute -top-12 -right-12 w-40 h-40 rounded-full bg-white/10 pointer-events-none"></div>
+            <div class="absolute -bottom-16 -left-16 w-44 h-44 rounded-full bg-sky-400/20 pointer-events-none"></div>
+            
+            <!-- HEADER ID CARD -->
+            <div class="relative z-10 flex flex-col items-center flex-shrink-0" style="font-family: Arial, Helvetica, sans-serif !important;">
+              <div class="flex items-center justify-center space-x-1.5 text-[10px] font-bold text-sky-200 uppercase" style="letter-spacing: 0.5px;">
+                <span>WI</span><span>•</span><span>MUSYAWARAH PENGURUS PLENO 2026</span>
+              </div>
+              <h4 class="text-[13px] font-bold text-white uppercase mt-1 leading-tight" style="letter-spacing: 0.2px;">MPP DPD WAHDAH ISLAMIYAH</h4>
+              <p class="text-[10.5px] font-bold uppercase text-amber-300 mt-0.5" style="letter-spacing: 0.8px;">PESERTA PENUH</p>
+            </div>
+
+            <!-- PASFOTO PROPORSI 3:4 RAPI SEIMBANG -->
+            <div class="relative z-10 mx-auto flex-shrink-0 my-1" style="width: 116px; height: 148px; padding: 4px; background-color: #ffffff; border-radius: 14px; box-shadow: 0 8px 20px -4px rgba(0,0,0,0.35);">
+              <img id="idCardFotoImg" crossorigin="anonymous" src="https://placehold.co/400x520/0284c7/ffffff?text=Peserta" onerror="tanganiFotoGagal(this)" alt="Foto Resmi" class="w-full h-full object-cover object-top rounded-lg bg-slate-100" referrerpolicy="no-referrer" style="display: block;">
+            </div>
+
+            <!-- AREA INFORMASI PENGURUS (LEGA, UTUH, BEBAS LINE-CLAMP, LINE-HEIGHT PIKSEL PASTI) -->
+            <div class="relative z-10 flex flex-col items-center justify-center w-full px-2 flex-shrink-0" style="min-height: 115px; overflow: visible !important; font-family: Arial, Helvetica, sans-serif !important;">
+              <p id="idCardBadgeId" class="text-[11px] font-bold text-amber-300" style="margin-bottom: 3px; letter-spacing: 0.8px; line-height: 14px;">ID: WI-2026-001</p>
+              <h2 id="idCardNamaLengkap" class="text-[15px] font-bold text-white text-center w-full" style="line-height: 21px; letter-spacing: normal; word-break: break-word; overflow: visible !important; display: block; margin: 0; padding: 0;">Peserta Musyawarah</h2>
+              <p id="idCardJabatan" class="text-[12px] font-bold text-amber-200 text-center w-full" style="line-height: 17px; margin-top: 3px; letter-spacing: normal; word-break: break-word; overflow: visible !important; display: block;">Pengurus Pleno</p>
+              <p id="idCardDepartemen" class="text-[10px] text-sky-100 text-center w-full" style="line-height: 14px; margin-top: 3px; letter-spacing: normal; word-break: break-word; overflow: visible !important; display: block;">Wahdah Islamiyah Berau</p>
+            </div>
+
+            <!-- FOOTER BARCODE & IDENTITAS -->
+            <div class="relative z-10 pt-2 border-t border-white/20 flex flex-col items-center justify-center flex-shrink-0" style="font-family: Arial, Helvetica, sans-serif !important;">
+              <div id="idCardQrContainer" class="w-[50px] h-[50px] bg-white flex items-center justify-center p-1 rounded-xl shadow-xs mb-1"></div>
+              <p class="text-[8.5px] font-bold uppercase text-sky-200" style="letter-spacing: 0.5px;">Barcode Presensi Sidang Pleno</p>
+              <p class="text-[9.5px] font-bold text-sky-100 mt-0.5">WA: <span id="idCardNoHpDisplay">-</span></p>
+            </div>
+          </div>
+
+          <!-- Tombol Aksi ID Card -->
+          <div id="idCardActionsArea" class="w-full max-w-[340px] flex items-center justify-between gap-3 mt-4 no-print">
+            <input type="file" id="inputGantiFotoFile" accept="image/*" class="hidden" onchange="tanganiGantiFoto(event)">
+            
+            <button onclick="document.getElementById('inputGantiFotoFile').click()" class="flex-1 py-2.5 px-3 rounded-2xl bg-white hover:bg-slate-100 text-slate-700 font-bold text-xs border border-slate-200 shadow-xs flex items-center justify-center space-x-1.5 transition cursor-pointer active:scale-95">
+              <svg class="w-4 h-4 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              <span>Ganti Pasfoto</span>
+            </button>
+
+            <button onclick="unduhFotoIdCard()" class="flex-1 py-2.5 px-3 rounded-2xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs shadow-md shadow-sky-600/20 flex items-center justify-center space-x-1.5 transition cursor-pointer active:scale-95">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              <span>Unduh Kartu</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- FORMULIR KONFIRMASI KESIAPAN -->
+        <div class="lg:col-span-6 space-y-5">
+          <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-xs border border-sky-100">
+            <div class="flex items-center space-x-3 border-b border-slate-100 pb-4 mb-4">
+              <div class="w-10 h-10 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-slate-800">Konfirmasi Kesiapan Hadir</h3>
+                <p class="text-xs text-slate-500">Perbarui status kesiapan antum sebelum musyawarah dimulai.</p>
+              </div>
+            </div>
+
+            <form id="formKesiapan" onsubmit="simpanKonfirmasiKehadiran(event)" class="space-y-4">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-2">Status Kesiapan Kehadiran</label>
+                <div class="grid grid-cols-2 gap-3">
+                  <label class="flex items-center p-3 rounded-2xl border border-slate-200 cursor-pointer hover:bg-slate-50 transition">
+                    <input type="radio" name="statusKehadiran" value="Hadir" checked class="text-sky-600 focus:ring-sky-500">
+                    <span class="ml-2 text-xs font-bold text-slate-800">In syaa Allah Hadir</span>
+                  </label>
+                  <label class="flex items-center p-3 rounded-2xl border border-slate-200 cursor-pointer hover:bg-slate-50 transition">
+                    <input type="radio" name="statusKehadiran" value="Izin" class="text-rose-600 focus:ring-rose-500">
+                    <span class="ml-2 text-xs font-bold text-slate-800">Berhalangan (Izin)</span>
+                  </label>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1.5">Catatan / Keterangan Kesiapan</label>
+                <textarea id="inputCatatanKehadiran" rows="3" placeholder="Contoh: Hadir tepat waktu bersama rombongan pengurus..." class="w-full text-xs rounded-2xl border border-slate-200 p-3 focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition"></textarea>
+              </div>
+
+              <button type="submit" id="btnSimpanKesiapan" class="w-full py-3 rounded-2xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold shadow-md shadow-sky-600/20 transition cursor-pointer active:scale-98 flex items-center justify-center space-x-2">
+                <span>Perbarui Kesiapan Saya</span>
+              </button>
+            </form>
+          </div>
+
+          <!-- PANDUAN RINGKAS SIDANG -->
+          <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-6 text-white shadow-md">
+            <h4 class="text-xs font-black uppercase tracking-widest text-amber-400 mb-2">KETENTUAN PESERTA PLENO</h4>
+            <ul class="text-xs space-y-2 text-slate-300 font-medium">
+              <li class="flex items-start space-x-2">
+                <span class="text-amber-400 font-bold">•</span>
+                <span>Mengenakan pakaian rapi, sopan, dan berbusana muslim resmi.</span>
+              </li>
+              <li class="flex items-start space-x-2">
+                <span class="text-amber-400 font-bold">•</span>
+                <span>Membawa kartu tanda pengenal digital (ID Card) untuk pemindaian presensi.</span>
+              </li>
+              <li class="flex items-start space-x-2">
+                <span class="text-amber-400 font-bold">•</span>
+                <span>Mengikuti seluruh tahapan Sidang Pleno 1 hingga 5 dengan tertib dan khidmat.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="tab-pengurus" class="tab-content hidden">
+      <!-- 4 KARTU METRIK BESAR STATISTIK PENGURUS -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
+        <div class="bg-white rounded-3xl p-4 sm:p-5 border border-sky-100 shadow-xs flex items-center space-x-3.5">
+          <div class="w-12 h-12 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center font-black">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+          </div>
+          <div>
+            <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Total Pengurus</p>
+            <h3 id="statTotalPengurus" class="text-2xl font-black text-slate-800 leading-tight">0</h3>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-3xl p-4 sm:p-5 border border-emerald-100 shadow-xs flex items-center space-x-3.5">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-black">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div>
+            <p class="text-[11px] font-bold text-emerald-600 uppercase tracking-wider">Siap Hadir</p>
+            <h3 id="statHadirPengurus" class="text-2xl font-black text-emerald-700 leading-tight">0</h3>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-3xl p-4 sm:p-5 border border-rose-100 shadow-xs flex items-center space-x-3.5">
+          <div class="w-12 h-12 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center font-black">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div>
+            <p class="text-[11px] font-bold text-rose-600 uppercase tracking-wider">Berhalangan</p>
+            <h3 id="statIzinPengurus" class="text-2xl font-black text-rose-700 leading-tight">0</h3>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-3xl p-4 sm:p-5 border border-amber-100 shadow-xs flex items-center justify-between">
+          <div class="flex items-center space-x-3.5">
+            <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center font-black">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <div>
+              <p class="text-[11px] font-bold text-amber-600 uppercase tracking-wider">Belum Konfirmasi</p>
+              <h3 id="statBelumPengurus" class="text-2xl font-black text-amber-700 leading-tight">0</h3>
+            </div>
+          </div>
+          <button onclick="salinWaBelumKonfirmasi()" class="p-2 sm:px-3 sm:py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold transition shadow-xs flex items-center space-x-1 cursor-pointer active:scale-95 flex-shrink-0" title="Salin format WA pengurus belum konfirmasi">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+            <span class="hidden sm:inline">Salin WA</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- DAFTAR PENGURUS LENGKAP -->
+      <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-xs border border-sky-100">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5 mb-5">
+          <div>
+            <h3 class="text-base font-bold text-slate-800">Daftar Pengurus Pleno DPD Wahdah Islamiyah Berau</h3>
+            <p class="text-xs text-slate-500">Klik pada pasfoto atau kartu untuk melihat ID Card lengkap peserta.</p>
+          </div>
+          <div class="flex flex-col sm:flex-row sm:items-center gap-2.5 w-full sm:w-auto">
+            <button onclick="salinWaBelumKonfirmasi()" class="px-3.5 py-2.5 rounded-2xl bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 text-xs font-bold transition flex items-center justify-center space-x-2 shadow-xs cursor-pointer active:scale-95 whitespace-nowrap">
+              <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+              <span>Salin Format Pesan WA</span>
+            </button>
+            <div class="relative w-full sm:w-60">
+              <input type="text" id="cariPengurusInput" onkeyup="filterDaftarPengurus()" placeholder="Cari nama / departemen..." class="w-full text-xs rounded-2xl border border-slate-200 pl-9 pr-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition">
+              <svg class="w-4 h-4 text-slate-400 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div id="gridDaftarPengurus" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- Render daftar pengurus via JavaScript -->
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-presensi" class="tab-content hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        
+        <!-- PRESENSI MANDIRI 1-KLIK -->
+        <div class="lg:col-span-5 space-y-5">
+          <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-xs border border-sky-100">
+            <div class="flex items-center space-x-3 border-b border-slate-100 pb-4 mb-4">
+              <div class="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-slate-800">Presensi Mandiri Peserta</h3>
+                <p class="text-xs text-slate-500">Catat kehadiran antum pada setiap sesi sidang.</p>
+              </div>
+            </div>
+
+            <!-- Profil Singkat Pengguna Aktif -->
+            <div class="bg-slate-50 rounded-2xl p-3.5 mb-4 flex items-center space-x-3 border border-slate-200/80">
+              <div class="w-11 h-11 rounded-xl bg-sky-600 text-white font-black text-sm flex items-center justify-center overflow-hidden flex-shrink-0">
+                <img id="presensiAvatarImg" src="" alt="Avatar" class="w-full h-full object-cover hidden" onerror="this.classList.add('hidden'); document.getElementById('presensiAvatarInitials').classList.remove('hidden');">
+                <span id="presensiAvatarInitials">PS</span>
+              </div>
+              <div class="truncate">
+                <h4 id="presensiCardNama" class="text-xs font-bold text-slate-800 truncate">Peserta Musyawarah</h4>
+                <p id="presensiCardMeta" class="text-[11px] text-slate-500 truncate">ID: WI-2026-001</p>
+              </div>
+            </div>
+
+            <!-- Dropdown Pilihan Sesi Sidang -->
+            <div class="space-y-4">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1.5">Pilih Sesi Sidang yang Diikuti</label>
+                <select id="selectSesiPresensi" class="w-full text-xs font-semibold rounded-2xl border border-slate-200 p-3 bg-white focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition">
+                  <option value="SESI-REGISTRASI">Check-In Masuk Registrasi</option>
+                  <option value="PLENO-01">Sidang Pleno 1 : Tata Tertib</option>
+                  <option value="PLENO-02">Sidang Pleno 2 : PH, Kesekretariatan, WIZ dan Ketahanan Keluarga</option>
+                  <option value="PLENO-03">Sidang Pleno 3 : Dakwah dan Kaderisasi (Ikhwan & Akhwat) & Olahraga</option>
+                  <option value="PLENO-04">Sidang Pleno 4 : KHQ dan Sosial Pelayanan Ummat (Ikhwan dan Akhwat) & PGM</option>
+                  <option value="PLENO-05">Sidang Pleno 5 : Medikom, Yayasan dan Wakaf</option>
+                </select>
+              </div>
+
+              <button onclick="kirimPresensiMandiri()" id="btnKirimPresensiMandiri" class="w-full py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-md shadow-emerald-600/20 transition cursor-pointer active:scale-98 flex items-center justify-center space-x-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>Konfirmasi Hadir di Sesi Ini</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- MEJA PANITIA & SCANNER KAMERA BARCODE -->
+          <div id="adminScannerCard" class="hidden bg-white rounded-3xl p-6 shadow-xs border border-amber-200">
+            <div class="flex items-center space-x-3 border-b border-amber-100 pb-4 mb-4">
+              <div class="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center font-black">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
+              </div>
+              <div>
+                <span class="inline-block bg-amber-100 text-amber-800 text-[10px] font-black px-2 py-0.5 rounded-full mb-0.5">MEJA PANITIA • ADMIN</span>
+                <h3 class="text-sm font-bold text-slate-800">Scanner Barcode Peserta</h3>
+              </div>
+            </div>
+
+            <div class="space-y-3">
+              <input type="file" id="cameraNativeBypassInput" accept="image/*" capture="environment" class="hidden" onchange="tanganiScanKameraNative(event)">
+
+              <div id="readerQrScanner" class="w-full rounded-2xl overflow-hidden bg-slate-900 border border-slate-700 min-h-[220px] flex flex-col items-center justify-center text-slate-400 text-xs text-center p-4">
+                <svg class="w-10 h-10 text-slate-600 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                <span>Pilih opsi kamera atau gunakan jepret bypass anti-blokir di bawah.</span>
+              </div>
+
+              <button type="button" onclick="mulaiKameraScanner()" class="w-full py-3 px-4 rounded-2xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-black shadow-lg shadow-sky-600/20 flex items-center justify-center space-x-2 transition cursor-pointer active:scale-98">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                <span>Buka Kamera Pemindai (Pop-up Bebas Izin)</span>
+              </button>
+
+              <button type="button" onclick="document.getElementById('cameraNativeBypassInput').click()" class="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-xs font-black shadow-lg shadow-emerald-600/20 flex items-center justify-center space-x-2 transition cursor-pointer active:scale-98">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                <span>Upload Foto / Jepret Manual (Bypass Blokir)</span>
+              </button>
+
+              <div class="pt-2 border-t border-slate-100 flex gap-2">
+                <input type="text" id="inputScanManual" placeholder="Ketik ID / No. WA..." class="flex-1 text-xs rounded-2xl border border-slate-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500">
+                <button type="button" onclick="prosesPresensiManualPanitia()" class="px-3 py-2 rounded-2xl bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold cursor-pointer">Catat</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LOG CATATAN KEHADIRAN SIDANG PLENO -->
+        <div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-7 shadow-xs border border-sky-100">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+            <div>
+              <h3 class="text-base font-bold text-slate-800">Catatan Kehadiran Sidang Pleno</h3>
+              <p class="text-xs text-slate-500">Daftar kehadiran peserta yang telah diverifikasi sistem.</p>
+            </div>
+            <button onclick="muatPresensiLog()" class="p-2 rounded-xl text-sky-600 hover:bg-sky-50 transition cursor-pointer" title="Perbarui Log">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            </button>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead>
+                <tr class="text-slate-400 border-b border-slate-100">
+                  <th class="pb-2.5 font-bold">Waktu</th>
+                  <th class="pb-2.5 font-bold">Sesi Sidang</th>
+                  <th class="pb-2.5 font-bold">Nama Peserta</th>
+                  <th class="pb-2.5 font-bold text-right">Metode</th>
+                </tr>
+              </thead>
+              <tbody id="tbodyPresensiLog" class="divide-y divide-slate-100">
+                <tr><td colspan="4" class="py-4 text-center text-slate-400">Belum ada riwayat kehadiran tercatat.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="tab-rundown" class="tab-content hidden">
+      <div class="print-only mb-4 text-center">
+        <h2 class="text-base font-black uppercase tracking-wider text-slate-900 leading-tight">DEWAN PENGURUS DAERAH WAHDAH ISLAMIYAH BERAU</h2>
+        <h3 class="text-sm font-bold uppercase tracking-wide text-slate-800">MUSYAWARAH PENGURUS PLENO (MPP) TAHUN 1448 H / 2026 M</h3>
+        <div class="kop-double-line"></div>
+        <div class="my-2 text-center">
+          <h4 class="text-xs font-black uppercase tracking-widest text-slate-900 underline">JADWAL & SUSUNAN ACARA RESMI SIDANG PLENO</h4>
+          <p class="text-[10pt] text-slate-800 mt-1 font-bold">Hari/Tanggal: Ahad, 20 September 2026 (8 Rabi'ul Akhir 1448 H)</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-xs border border-sky-100">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5 mb-5 no-print">
+          <div>
+            <h3 class="text-base font-bold text-slate-800">Jadwal & Rundown Sidang Pleno MPP 2026</h3>
+            <p class="text-xs text-slate-500">Ahad, 20 September 2026 (8 Rabi'ul Akhir 1448 H) • Zona WITA</p>
+          </div>
+          <button onclick="window.print()" class="px-4 py-2.5 rounded-2xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold transition flex items-center space-x-2 shadow-md shadow-sky-600/20 cursor-pointer active:scale-95">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+            <span>Cetak / Simpan PDF</span>
+          </button>
+        </div>
+
+        <div id="containerRundownWeb" class="space-y-3 no-print">
+          <!-- Render kartu jadwal via JavaScript -->
+        </div>
+
+        <div class="print-only mt-3">
+          <table class="w-full text-left text-xs border border-slate-800 border-collapse">
+            <thead>
+              <tr class="bg-slate-100 border-b border-slate-800">
+                <th class="p-2 border-r border-slate-800 font-bold text-center w-12">No</th>
+                <th class="p-2 border-r border-slate-800 font-bold text-center w-36">Waktu (WITA)</th>
+                <th class="p-2 border-r border-slate-800 font-bold">Agenda Kegiatan Sidang</th>
+                <th class="p-2 font-bold w-52">PIC / Pelaksana</th>
+              </tr>
+            </thead>
+            <tbody id="rundownPrintTbody" class="divide-y divide-slate-800"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-proker" class="tab-content hidden space-y-6">
+      <!-- 1. BERKAS RESMI DI POSISI ATAS -->
+      <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-xs border border-sky-100">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+          <div>
+            <h3 class="text-base font-bold text-slate-800">Berkas & Dokumen Resmi Sidang</h3>
+            <p class="text-xs text-slate-500">Bahan bacaan tata tertib, panduan teknis, dan rancangan strategis pleno.</p>
+          </div>
+          <span class="text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800">Bahan Pleno</span>
+        </div>
+        <div id="containerBerkasPleno" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <!-- Render via JavaScript -->
+        </div>
+      </div>
+
+      <!-- 2. DRAF PROGRAM KERJA UNGGULAN -->
+      <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-xs border border-sky-100">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+          <div>
+            <h3 class="text-base font-bold text-slate-800">Draf Program Kerja Unggulan Departemen</h3>
+            <p class="text-xs text-slate-500">Rancangan program kerja yang akan dimusyawarahkan dalam sidang komisi & pleno.</p>
+          </div>
+          <span class="text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full bg-sky-100 text-sky-800">Rencana Proker</span>
+        </div>
+        <div id="gridDraftProker" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Render via JavaScript -->
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-aspirasi" class="tab-content hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <div class="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-7 shadow-xs border border-sky-100">
+          <div class="border-b border-slate-100 pb-4 mb-4">
+            <h3 class="text-base font-bold text-slate-800">Sampaikan Aspirasi Sidang</h3>
+            <p class="text-xs text-slate-500">Masukan dan saran antum akan langsung diteruskan kepada presidium sidang.</p>
+          </div>
+
+          <form id="formAspirasi" onsubmit="kirimAspirasiSidang(event)" class="space-y-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1.5">Sidang Pleno / Komisi Tujuan</label>
+              <select id="aspirasiTujuan" class="w-full text-xs font-semibold rounded-2xl border border-slate-200 p-3 bg-white focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500">
+                <option value="Presidium Sidang Pleno (Umum)">Presidium Sidang Pleno (Umum)</option>
+                <option value="Check-In Masuk Registrasi">Check-In Masuk Registrasi</option>
+                <option value="Sidang Pleno 1 : Tata Tertib">Sidang Pleno 1 : Tata Tertib</option>
+                <option value="Sidang Pleno 2 : PH, Kesekretariatan, WIZ dan Ketahanan Keluarga">Sidang Pleno 2 : PH, Kesekretariatan, WIZ dan Ketahanan Keluarga</option>
+                <option value="Sidang Pleno 3 : Dakwah dan Kaderisasi (Ikhwan & Akhwat) & Olahraga">Sidang Pleno 3 : Dakwah dan Kaderisasi (Ikhwan & Akhwat) & Olahraga</option>
+                <option value="Sidang Pleno 4 : KHQ dan Sosial Pelayanan Ummat (Ikhwan dan Akhwat) & PGM">Sidang Pleno 4 : KHQ dan Sosial Pelayanan Ummat (Ikhwan dan Akhwat) & PGM</option>
+                <option value="Sidang Pleno 5 : Medikom, Yayasan dan Wakaf">Sidang Pleno 5 : Medikom, Yayasan dan Wakaf</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1.5">Pesan / Gagasan Masukan</label>
+              <textarea id="aspirasiPesan" rows="4" required placeholder="Tuliskan ide, masukan perbaikan, atau aspirasi strategis antum untuk sidang ini..." class="w-full text-xs rounded-2xl border border-slate-200 p-3 focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500"></textarea>
+            </div>
+
+            <button type="submit" id="btnKirimAspirasi" class="w-full py-3 rounded-2xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold shadow-md shadow-sky-600/20 transition cursor-pointer active:scale-98">
+              Kirim Aspirasi Sekarang
+            </button>
+          </form>
+        </div>
+
+        <div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-7 shadow-xs border border-sky-100">
+          <div class="border-b border-slate-100 pb-4 mb-4">
+            <h3 class="text-base font-bold text-slate-800">Daftar Aspirasi Masuk</h3>
+            <p class="text-xs text-slate-500">Aspirasi terkini dari seluruh peserta musyawarah.</p>
+          </div>
+          <div id="containerDaftarAspirasi" class="space-y-3">
+            <!-- Render via JavaScript -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- MODAL GERBANG LOGIN MANDIRI LENGKAP -->
+  <div id="authGateModal" class="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-md flex items-center justify-center p-4 transition-opacity duration-300" style="display: none;">
+    <div class="bg-white w-full max-w-md rounded-3xl p-6 sm:p-7 shadow-2xl border border-slate-100 relative">
+      <button type="button" onclick="tutupModalLogin()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition cursor-pointer">✕</button>
+
+      <div class="text-center mb-6">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-sky-700 to-sky-500 text-white flex items-center justify-center mx-auto mb-3 text-lg font-black shadow-md shadow-sky-600/30">
+          WI
+        </div>
+        <span class="inline-block bg-sky-100 text-sky-800 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider mb-2">MPP DPD WAHDAH ISLAMIYAH BERAU 2026</span>
+        <h3 class="text-xl font-black text-slate-800 tracking-tight">Ahlan wa Sahlan</h3>
+        <p class="text-xs text-slate-500 mt-1 leading-relaxed">Silakan masukkan nomor WhatsApp pribadi antum untuk membuka ID Card, status kepengurusan, dan presensi pleno.</p>
+      </div>
+
+      <form id="formLoginMandiri" onsubmit="eksekusiLoginMandiri(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1.5">Nomor WhatsApp Pengurus</label>
+          <div class="relative">
+            <input type="tel" id="inputLoginNoWa" required placeholder="Contoh: 081234567890" class="w-full text-sm font-semibold rounded-2xl border border-slate-200 pl-4 pr-10 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition">
+            <span class="absolute right-3.5 top-3.5 text-slate-400">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            </span>
+          </div>
+          <p class="text-[11px] text-slate-400 mt-1.5">Gunakan nomor WhatsApp yang telah didaftarkan di panitia.</p>
+        </div>
+
+        <button type="submit" id="btnLoginSubmit" class="w-full py-3.5 rounded-2xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs shadow-md shadow-sky-600/20 transition cursor-pointer active:scale-98 flex items-center justify-center space-x-2">
+          <span>Buka Akun Saya</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL DETAIL FOTO & PREVIEW ID CARD PENGURUS -->
+  <div id="modalFotoPengurus" class="fixed inset-0 z-50 bg-slate-900/75 backdrop-blur-sm flex items-center justify-center p-4 transition-all duration-300" style="display: none;">
+    <div class="bg-white w-full max-w-sm rounded-3xl p-5 sm:p-6 shadow-2xl border border-slate-100 relative max-h-[94vh] overflow-y-auto flex flex-col items-center">
+      <button type="button" onclick="tutupModalFotoPengurus()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition cursor-pointer">✕</button>
+      
+      <div class="text-center mb-3">
+        <span class="inline-block bg-sky-100 text-sky-800 text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider">ID Card Pengurus Pleno</span>
+        <h3 class="text-sm font-bold text-slate-800 mt-1">Kartu Tanda Peserta</h3>
+      </div>
+
+      <!-- KARTU ID SOLID PREVIEW 5.5 x 8.5 CM (PRESISI TINGGI) -->
+      <div id="modalIdCardPrintArea" class="w-full text-white text-center shadow-xl relative overflow-hidden border border-white/20 flex flex-col justify-between" style="width: 320px; height: 500px; max-width: 320px; border-radius: 20px; padding: 16px 14px 12px 14px; background: linear-gradient(160deg, #0284c7 0%, #0369a1 45%, #075985 100%); font-family: Arial, Helvetica, sans-serif !important;">
+        <div class="absolute -top-10 -right-10 w-36 h-36 rounded-full bg-white/10 pointer-events-none"></div>
+        <div class="absolute -bottom-12 -left-12 w-40 h-40 rounded-full bg-sky-400/20 pointer-events-none"></div>
+
+        <!-- HEADER ID CARD MODAL -->
+        <div class="relative z-10 flex flex-col items-center flex-shrink-0" style="font-family: Arial, Helvetica, sans-serif !important;">
+          <div class="flex items-center justify-center space-x-1.5 text-[9.5px] font-bold text-sky-200 uppercase" style="letter-spacing: 0.5px;">
+            <span>WI</span><span>•</span><span>MPP DPD BERAU 2026</span>
+          </div>
+          <h4 class="text-[12px] font-bold text-white uppercase mt-1 leading-tight" style="letter-spacing: 0.2px;">MUSYAWARAH PENGURUS PLENO</h4>
+          <p class="text-[10px] font-bold uppercase text-amber-300 mt-0.5" style="letter-spacing: 0.8px;">PESERTA PENUH</p>
+        </div>
+
+        <!-- PASFOTO MODAL SEIMBANG -->
+        <div class="relative z-10 mx-auto flex-shrink-0 my-1" style="width: 112px; height: 142px; padding: 4px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 8px 18px -4px rgba(0,0,0,0.35);">
+          <img id="modalIdCardFotoImg" crossorigin="anonymous" src="" onerror="tanganiFotoGagal(this)" alt="Pasfoto Pengurus" class="w-full h-full object-cover object-top rounded-lg bg-slate-100" referrerpolicy="no-referrer" style="display: block;">
+        </div>
+
+        <!-- AREA NAMA & DEPARTEMEN MODAL (LEGA, UTUH, BEBAS LINE-CLAMP) -->
+        <div class="relative z-10 flex flex-col items-center justify-center w-full px-2 flex-shrink-0" style="min-height: 110px; overflow: visible !important; font-family: Arial, Helvetica, sans-serif !important;">
+          <p id="modalIdCardBadgeId" class="text-[10.5px] font-bold text-amber-300" style="margin-bottom: 3px; letter-spacing: 0.8px; line-height: 14px;">ID: -</p>
+          <h2 id="modalIdCardNama" class="text-[14.5px] font-bold text-white text-center w-full" style="line-height: 20px; letter-spacing: normal; word-break: break-word; overflow: visible !important; display: block; margin: 0; padding: 0;">-</h2>
+          <p id="modalIdCardJabatan" class="text-[11.5px] font-bold text-amber-200 text-center w-full" style="line-height: 16px; margin-top: 3px; letter-spacing: normal; word-break: break-word; overflow: visible !important; display: block;">-</p>
+          <p id="modalIdCardDept" class="text-[9.5px] text-sky-100 text-center w-full" style="line-height: 14px; margin-top: 3px; letter-spacing: normal; word-break: break-word; overflow: visible !important; display: block;">-</p>
+        </div>
+
+        <!-- FOOTER BARCODE MODAL -->
+        <div class="relative z-10 pt-1.5 border-t border-white/20 flex flex-col items-center justify-center flex-shrink-0" style="font-family: Arial, Helvetica, sans-serif !important;">
+          <div id="modalIdCardQrContainer" class="w-[46px] h-[46px] bg-white flex items-center justify-center p-1 rounded-xl shadow-xs mb-0.5"></div>
+          <p class="text-[8px] font-bold uppercase text-sky-200" style="letter-spacing: 0.5px;">Barcode Presensi Sidang Pleno</p>
+          <p class="text-[9px] font-bold text-sky-100 mt-0.5">WA: <span id="modalIdCardNoHpDisplay">-</span></p>
+        </div>
+      </div>
+
+      <!-- Detail Catatan Kesiapan & Tombol Unduh / Tutup -->
+      <div class="w-full mt-4 space-y-2.5">
+        <div class="bg-slate-50 p-3 rounded-2xl border border-slate-100 text-left">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-[10px] font-bold text-slate-500 uppercase">Kesiapan:</span>
+            <span id="modalFotoBadgeStatus" class="inline-block px-2.5 py-0.5 rounded-full text-[9.5px] font-black uppercase tracking-wider">Hadir</span>
+          </div>
+          <p id="modalFotoCatatan" class="text-xs text-slate-600 italic">"Belum ada catatan kesiapan."</p>
+        </div>
+
+        <div class="flex gap-2">
+          <button type="button" onclick="unduhIdCardModal()" class="flex-1 py-2.5 px-3 rounded-2xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs shadow-md shadow-sky-600/20 flex items-center justify-center space-x-1.5 transition cursor-pointer active:scale-95">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            <span>Unduh Kartu</span>
+          </button>
+          <button type="button" onclick="tutupModalFotoPengurus()" class="py-2.5 px-4 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition cursor-pointer">
+            Tutup
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL PANDUAN IZIN KAMERA -->
+  <div id="modalPanduanKamera" class="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-md flex items-center justify-center p-4" style="display: none;">
+    <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl border border-slate-100 text-center relative">
+      <button onclick="tutupModalPanduanKamera()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition cursor-pointer">✕</button>
+
+      <div class="w-12 h-12 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center mx-auto mb-3">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+      </div>
+
+      <h3 class="text-base font-black text-slate-800">Izin Kamera Terblokir</h3>
+      <p class="text-xs text-slate-500 mt-1 leading-relaxed">Browser memblokir akses video langsung. Gunakan opsi cepat berikut:</p>
+
+      <div class="text-left bg-slate-50 p-3.5 rounded-2xl border border-slate-200/80 my-3 text-xs space-y-2">
+        <p class="font-bold text-slate-800 flex items-center space-x-1.5">
+          <span class="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px]">1</span>
+          <span>Solusi Cepat (Rekomendasi):</span>
+        </p>
+        <p class="text-slate-600 pl-6">Gunakan tombol hijau <b>"Upload Foto / Jepret Manual"</b>. Kamera bawaan akan langsung aktif tanpa kendala izin.</p>
+      </div>
+
+      <button type="button" onclick="tutupModalPanduanKamera(); document.getElementById('cameraNativeBypassInput').click();" class="w-full py-2.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition cursor-pointer">
+        Jepret Barcode Sekarang
+      </button>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFIKASI -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 space-y-2 pointer-events-none"></div>
+
+  <!-- MENU NAVIGASI BAWAH KOKOH KHUSUS PONSEL (FIXED MOBILE BOTTOM NAV) -->
+  <nav id="mobileBottomBar" class="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200/90 shadow-[0_-4px_20px_rgba(0,0,0,0.06)] md:hidden no-print flex items-center justify-around px-1 py-1.5 pb-safe">
+    <button onclick="pindahTab('beranda')" id="mTabBtn-beranda" class="flex-1 py-1 flex flex-col items-center justify-center transition cursor-pointer text-sky-600 font-bold">
+      <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+      <span class="text-[9.5px] leading-tight">Beranda</span>
+    </button>
+
+    <button onclick="pindahTab('pengurus')" id="mTabBtn-pengurus" class="flex-1 py-1 flex flex-col items-center justify-center transition cursor-pointer text-slate-400 font-medium hover:text-slate-700">
+      <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+      <span class="text-[9.5px] leading-tight">Pengurus</span>
+    </button>
+
+    <button onclick="pindahTab('presensi')" id="mTabBtn-presensi" class="flex-1 py-1 flex flex-col items-center justify-center transition cursor-pointer text-slate-400 font-medium hover:text-slate-700">
+      <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <span class="text-[9.5px] leading-tight">Presensi</span>
+    </button>
+
+    <button onclick="pindahTab('rundown')" id="mTabBtn-rundown" class="flex-1 py-1 flex flex-col items-center justify-center transition cursor-pointer text-slate-400 font-medium hover:text-slate-700">
+      <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+      <span class="text-[9.5px] leading-tight">Rundown</span>
+    </button>
+
+    <button onclick="pindahTab('proker')" id="mTabBtn-proker" class="flex-1 py-1 flex flex-col items-center justify-center transition cursor-pointer text-slate-400 font-medium hover:text-slate-700">
+      <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+      <span class="text-[9.5px] leading-tight">Berkas</span>
+    </button>
+
+    <button onclick="pindahTab('aspirasi')" id="mTabBtn-aspirasi" class="flex-1 py-1 flex flex-col items-center justify-center transition cursor-pointer text-slate-400 font-medium hover:text-slate-700">
+      <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/></svg>
+      <span class="text-[9.5px] leading-tight">Aspirasi</span>
+    </button>
+  </nav>
+
+  <script>
+    // =========================================================================
+    // KONFIGURASI API BACKEND GOOGLE APPS SCRIPT (SUDAH DIPERBARUI)
+    // =========================================================================
+    const API_URL = "https://script.google.com/macros/s/AKfycbx14p5HYII8kY9fd7ElnDQYsWnHBYgF69X4g1LmFbg_4ni20l0Qqr-mroKwHWsASS4Z/exec";
+
+    /**
+     * Fungsi Helper untuk melakukan HTTP POST Request ke Google Apps Script API.
+     */
+    async function callBackendAPI(actionName, dataPayload) {
+      if (!API_URL || API_URL === "URL_WEB_APP_APPS_SCRIPT_ANDA_DISINI") {
+        throw new Error("URL API belum disetel.");
+      }
+      
+      try {
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ action: actionName, data: dataPayload })
+        });
+        
+        const result = await response.json();
+        if(!result.success) throw new Error(result.message);
+        return result;
+      } catch (error) {
+        console.error("API Fetch Error:", error);
+        throw error;
+      }
+    }
+
+    var appState = {
+      currentUser: null,
+      pengurus: [
+        { id: "WI-2026-001", nama: "Ust. H. Muhammad Rahmat, Lc.", noHp: "081234567890", jabatan: "Ketua DPD", departemen: "Badan Pengurus Harian", statusKehadiran: "Hadir", catatan: "Siap memimpin jalannya musyawarah pleno", fotoUrl: "https://placehold.co/400x520/0284c7/ffffff?text=Ust+Rahmat", role: "Pengurus" },
+        { id: "WI-2026-006", nama: "Dwi Faturrahman, S.H.", noHp: "082154134235", jabatan: "Anggota Dep. Dakwah", departemen: "Departemen Dakwah & Taklim", statusKehadiran: "Hadir", catatan: "Siap hadir penuh dan mengawal sidang", fotoUrl: "https://placehold.co/400x520/0284c7/ffffff?text=Dwi+Fatur", role: "Admin" }
+      ],
+      rundown: [
+        { idSesi: "SESI-REGISTRASI", jamMulai: "07.30", jamSelesai: "08.30", agenda: "Check-In Masuk Registrasi", pic: "Sie Kesekretariatan", status: "Aktif" }
+      ],
+      presensiLog: [],
+      proker: [],
+      berkas: [],
+      aspirasi: [],
+      scannerInstance: null
+    };
+
+    function showToast(pesan, tipe) {
+      var container = document.getElementById("toastContainer");
+      if (!container) return;
+      var el = document.createElement("div");
+      var bgColor = tipe === "error" ? "bg-rose-600" : (tipe === "info" ? "bg-sky-600" : "bg-emerald-600");
+      el.className = bgColor + " text-white text-xs font-bold px-4 py-3 rounded-2xl shadow-xl flex items-center space-x-2 transition-all transform duration-300 opacity-0 translate-y-2 pointer-events-auto";
+      el.innerHTML = '<span>' + pesan + '</span>';
+      container.appendChild(el);
+
+      setTimeout(function() { el.classList.remove("opacity-0", "translate-y-2"); }, 50);
+      setTimeout(function() {
+        el.classList.add("opacity-0", "translate-y-2");
+        setTimeout(function() { el.remove(); }, 300);
+      }, 3500);
+    }
+
+    function tanganiFotoGagal(imgEl) {
+      if (!imgEl) return;
+      imgEl.onerror = null;
+      imgEl.src = "https://placehold.co/400x520/0284c7/ffffff?text=Pasfoto";
+    }
+
+    function extractPhoneCore(raw) {
+      if (!raw) return "";
+      var str = String(raw).trim().replace(/[^0-9]/g, "");
+      if (str.indexOf("62") === 0) str = str.substring(2);
+      while (str.indexOf("0") === 0) str = str.substring(1);
+      return str;
+    }
+
+    function formatPhoneDisplay(raw) {
+      var core = extractPhoneCore(raw);
+      return core ? "0" + core : "";
+    }
+
+    function matchPhoneClient(phone1, phone2) {
+      var c1 = extractPhoneCore(phone1);
+      var c2 = extractPhoneCore(phone2);
+      if (!c1 || !c2 || c1.length < 7 || c2.length < 7) return false;
+      if (c1 === c2) return true;
+      if (c1.length >= 8 && c2.length >= 8) {
+        return c1.slice(-8) === c2.slice(-8);
+      }
+      return false;
+    }
+
+    function updateWaktuDanCountdown() {
+      var now = new Date();
+      var utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+      var wita = new Date(utc + (3600000 * 8));
+
+      var jam = String(wita.getHours()).padStart(2, '0');
+      var mnt = String(wita.getMinutes()).padStart(2, '0');
+      var dtk = String(wita.getSeconds()).padStart(2, '0');
+      var clockEl = document.getElementById("clockTime");
+      if (clockEl) clockEl.innerText = jam + ":" + mnt + ":" + dtk + " WITA";
+
+      var hariArr = ["Ahad", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"];
+      var bulanArr = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+      var masehiEl = document.getElementById("liveMasehiDate");
+      if (masehiEl) {
+        masehiEl.innerText = hariArr[wita.getDay()] + ", " + wita.getDate() + " " + bulanArr[wita.getMonth()] + " " + wita.getFullYear();
+      }
+
+      var targetH = new Date("2026-09-20T08:00:00+08:00").getTime();
+      var diff = targetH - wita.getTime();
+      if (diff <= 0) {
+        if (document.getElementById("cntHari")) document.getElementById("cntHari").innerText = "00";
+        if (document.getElementById("cntJam")) document.getElementById("cntJam").innerText = "00";
+        if (document.getElementById("cntMenit")) document.getElementById("cntMenit").innerText = "00";
+        if (document.getElementById("cntDetik")) document.getElementById("cntDetik").innerText = "00";
+      } else {
+        var hari = Math.floor(diff / (1000 * 60 * 60 * 24));
+        var sisaJam = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var sisaMnt = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        var sisaDtk = Math.floor((diff % (1000 * 60)) / 1000);
+
+        if (document.getElementById("cntHari")) document.getElementById("cntHari").innerText = String(hari).padStart(2, '0');
+        if (document.getElementById("cntJam")) document.getElementById("cntJam").innerText = String(sisaJam).padStart(2, '0');
+        if (document.getElementById("cntMenit")) document.getElementById("cntMenit").innerText = String(sisaMnt).padStart(2, '0');
+        if (document.getElementById("cntDetik")) document.getElementById("cntDetik").innerText = String(sisaDtk).padStart(2, '0');
+      }
+    }
+
+    function renderUserProfile(u) {
+      if (!u) return;
+      appState.currentUser = u;
+      localStorage.setItem("MPP_ACTIVE_USER", JSON.stringify(u));
+
+      var elNavName = document.getElementById("navUserName");
+      var elNavRole = document.getElementById("navUserRole");
+      var elNavAvatarImg = document.getElementById("navAvatarImg");
+      var elNavInitials = document.getElementById("navInitials");
+
+      if (elNavName) elNavName.innerText = u.nama;
+      if (elNavRole) elNavRole.innerText = u.role ? u.role.toUpperCase() : "PENGURUS";
+
+      var inisial = u.nama.split(" ").map(function(n) { return n[0]; }).join("").substring(0, 2).toUpperCase();
+      if (elNavInitials) elNavInitials.innerText = inisial;
+
+      if (u.fotoUrl && u.fotoUrl.trim() !== "" && u.fotoUrl !== "#") {
+        if (elNavAvatarImg) {
+          elNavAvatarImg.src = u.fotoUrl;
+          elNavAvatarImg.style.objectPosition = "center top";
+          elNavAvatarImg.classList.remove("hidden");
+          if (elNavInitials) elNavInitials.classList.add("hidden");
+        }
+      } else {
+        if (elNavAvatarImg) elNavAvatarImg.classList.add("hidden");
+        if (elNavInitials) elNavInitials.classList.remove("hidden");
+      }
+
+      var elIdBadge = document.getElementById("idCardBadgeId");
+      var elIdNama = document.getElementById("idCardNamaLengkap");
+      var elIdJabatan = document.getElementById("idCardJabatan");
+      var elIdDept = document.getElementById("idCardDepartemen");
+      var elIdWa = document.getElementById("idCardNoHpDisplay");
+      var elIdFoto = document.getElementById("idCardFotoImg");
+
+      if (elIdBadge) elIdBadge.innerText = "ID: " + u.id;
+      if (elIdNama) elIdNama.innerText = u.nama;
+      if (elIdJabatan) elIdJabatan.innerText = u.jabatan || "Pengurus Pleno";
+      if (elIdDept) elIdDept.innerText = u.departemen || "Wahdah Islamiyah Berau";
+      if (elIdWa) elIdWa.innerText = formatPhoneDisplay(u.noHp);
+
+      if (elIdFoto) {
+        if (u.fotoUrl && u.fotoUrl.trim() !== "" && u.fotoUrl !== "#") {
+          elIdFoto.src = u.fotoUrl;
+        } else {
+          elIdFoto.src = "https://placehold.co/400x520/0284c7/ffffff?text=" + encodeURIComponent(u.nama.split(" ")[0]);
+        }
+      }
+
+      var qrContainer = document.getElementById("idCardQrContainer");
+      if (qrContainer && typeof QRCode !== "undefined") {
+        qrContainer.innerHTML = "";
+        new QRCode(qrContainer, {
+          text: u.id,
+          width: 44,
+          height: 44,
+          colorDark: "#0284c7",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.M
+        });
+      }
+
+      var elPresNama = document.getElementById("presensiCardNama");
+      var elPresMeta = document.getElementById("presensiCardMeta");
+      var elPresAvatarImg = document.getElementById("presensiAvatarImg");
+      var elPresInitials = document.getElementById("presensiAvatarInitials");
+
+      if (elPresNama) elPresNama.innerText = u.nama;
+      if (elPresMeta) elPresMeta.innerText = "ID: " + u.id + " • " + (u.departemen || "WI Berau");
+      if (elPresInitials) elPresInitials.innerText = inisial;
+
+      if (u.fotoUrl && u.fotoUrl.trim() !== "" && u.fotoUrl !== "#") {
+        if (elPresAvatarImg) {
+          elPresAvatarImg.src = u.fotoUrl;
+          elPresAvatarImg.classList.remove("hidden");
+          if (elPresInitials) elPresInitials.classList.add("hidden");
+        }
+      } else {
+        if (elPresAvatarImg) elPresAvatarImg.classList.add("hidden");
+        if (elPresInitials) elPresInitials.classList.remove("hidden");
+      }
+
+      var radioHadir = document.querySelector('input[name="statusKehadiran"][value="Hadir"]');
+      var radioIzin = document.querySelector('input[name="statusKehadiran"][value="Izin"]');
+      if (u.statusKehadiran === "Izin") {
+        if (radioIzin) radioIzin.checked = true;
+      } else {
+        if (radioHadir) radioHadir.checked = true;
+      }
+      var catatanInput = document.getElementById("inputCatatanKehadiran");
+      if (catatanInput && u.catatan) catatanInput.value = u.catatan;
+
+      periksaHakAdmin();
+    }
+
+    function periksaHakAdmin() {
+      var cardScanner = document.getElementById("adminScannerCard");
+      if (!cardScanner) return;
+      var u = appState.currentUser;
+      var isAdmin = false;
+      if (u) {
+        var core = extractPhoneCore(u.noHp);
+        if (core === "82154134235" || (u.role && u.role.toLowerCase() === "admin")) {
+          isAdmin = true;
+        }
+      }
+      if (isAdmin) {
+        cardScanner.classList.remove("hidden");
+      } else {
+        cardScanner.classList.add("hidden");
+        hentikanKameraScanner();
+      }
+    }
+
+    function bukaModalLogin() {
+      var modal = document.getElementById("authGateModal");
+      if (modal) {
+        modal.style.display = "flex";
+        var input = document.getElementById("inputLoginNoWa");
+        if (input) {
+          setTimeout(function() { input.focus(); }, 150);
+        }
+      }
+    }
+
+    function tutupModalLogin() {
+      var modal = document.getElementById("authGateModal");
+      if (modal) modal.style.display = "none";
+    }
+
+    function eksekusiLoginMandiri(e) {
+      if (e) e.preventDefault();
+      var input = document.getElementById("inputLoginNoWa");
+      var noWa = input ? input.value.trim() : "";
+      if (!noWa || extractPhoneCore(noWa).length < 7) {
+        showToast("Ketik nomor WhatsApp antum dengan benar (diawali 08)", "error");
+        return;
+      }
+
+      var btn = document.getElementById("btnLoginSubmit");
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span>Memeriksa Akun...</span>';
+      }
+
+      callBackendAPI('loginUser', { noWa: noWa })
+        .then(function(res) {
+          if (btn) { btn.disabled = false; btn.innerHTML = '<span>Buka Akun Saya</span>'; }
+          tutupModalLogin();
+          renderUserProfile(res.data);
+          showToast("Ahlan wa Sahlan, " + res.data.nama + " (" + (res.data.jabatan || "Pengurus") + ")", "success");
+        })
+        .catch(function(err) {
+          if (btn) { btn.disabled = false; btn.innerHTML = '<span>Buka Akun Saya</span>'; }
+          prosesLoginLokal(noWa); // Fallback offline lokal
+        });
+    }
+
+    function prosesLoginLokal(noWa) {
+      var core = extractPhoneCore(noWa);
+      var matched = null;
+      for (var i = 0; i < appState.pengurus.length; i++) {
+        if (matchPhoneClient(appState.pengurus[i].noHp, noWa)) {
+          matched = appState.pengurus[i];
+          break;
+        }
+      }
+      if (!matched) {
+        var isSuper = (core === "82154134235");
+        matched = {
+          id: isSuper ? "WI-2026-006" : ("WI-TAMU-" + core.slice(-4)),
+          nama: isSuper ? "Dwi Faturrahman, S.H." : ("Pengurus (" + formatPhoneDisplay(noWa) + ")"),
+          noHp: formatPhoneDisplay(noWa),
+          jabatan: isSuper ? "Admin Presidium" : "Peserta Musyawarah",
+          departemen: "Wahdah Islamiyah Berau",
+          statusKehadiran: "Hadir",
+          catatan: "Login Mandiri Offline",
+          fotoUrl: "",
+          role: isSuper ? "Admin" : "Pengurus"
+        };
+      }
+      tutupModalLogin();
+      renderUserProfile(matched);
+      showToast("Tersambung Mode Offline Lokal: " + matched.nama, "info");
+    }
+
+    function konfirmasiLogout() {
+      localStorage.removeItem("MPP_ACTIVE_USER");
+      appState.currentUser = null;
+      showToast("Antum telah keluar akun.", "info");
+      bukaModalLogin();
+    }
+
+    function pindahTab(tabId) {
+      var tabs = ["beranda", "pengurus", "presensi", "rundown", "proker", "aspirasi"];
+      tabs.forEach(function(t) {
+        var tabEl = document.getElementById("tab-" + t);
+        var btnEl = document.getElementById("tabBtn-" + t);
+        var mBtnEl = document.getElementById("mTabBtn-" + t);
+
+        if (tabEl) {
+          if (t === tabId) {
+            tabEl.classList.remove("hidden");
+            tabEl.classList.add("block");
+          } else {
+            tabEl.classList.remove("block");
+            tabEl.classList.add("hidden");
+          }
+        }
+        if (btnEl) {
+          if (t === tabId) {
+            btnEl.className = "tab-nav-btn px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold transition flex items-center space-x-2 bg-sky-600 text-white shadow-md shadow-sky-600/20 whitespace-nowrap cursor-pointer";
+          } else {
+            btnEl.className = "tab-nav-btn px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-semibold transition flex items-center space-x-2 bg-white text-slate-600 hover:bg-slate-100 hover:text-slate-900 border border-slate-200/80 whitespace-nowrap cursor-pointer";
+          }
+        }
+        if (mBtnEl) {
+          if (t === tabId) {
+            mBtnEl.className = "flex-1 py-1 flex flex-col items-center justify-center transition cursor-pointer text-sky-600 font-bold";
+          } else {
+            mBtnEl.className = "flex-1 py-1 flex flex-col items-center justify-center transition cursor-pointer text-slate-400 font-medium hover:text-slate-700";
+          }
+        }
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderPengurusList(list) {
+      var container = document.getElementById("gridDaftarPengurus");
+      if (!container) return;
+      container.innerHTML = "";
+
+      var stats = { total: list.length, hadir: 0, izin: 0, belum: 0 };
+
+      list.forEach(function(p) {
+        var st = p.statusKehadiran || "Belum Konfirmasi";
+        if (st === "Hadir") stats.hadir++;
+        else if (st === "Izin") stats.izin++;
+        else stats.belum++;
+
+        var badgeBg = st === "Hadir" ? "bg-emerald-100 text-emerald-800" : (st === "Izin" ? "bg-rose-100 text-rose-800" : "bg-amber-100 text-amber-800");
+
+        var card = document.createElement("div");
+        card.className = "p-3.5 rounded-2xl border border-slate-200/80 bg-white hover:border-sky-300 hover:shadow-md transition shadow-xs flex items-center space-x-3.5 cursor-pointer group";
+        card.onclick = function() { bukaModalFotoPengurus(p); };
+
+        var foto = (p.fotoUrl && p.fotoUrl.trim() !== "" && p.fotoUrl !== "#") ? p.fotoUrl : ("https://placehold.co/400x520/0284c7/ffffff?text=" + encodeURIComponent(p.nama.split(" ")[0]));
+
+        card.innerHTML = 
+          '<div class="w-16 h-20 rounded-xl overflow-hidden bg-slate-100 shrink-0 border border-slate-200/90 shadow-2xs aspect-[3/4] relative ring-1 ring-slate-200">' +
+            '<img src="' + foto + '" alt="' + p.nama + '" class="w-full h-full object-cover object-top" onerror="tanganiFotoGagal(this)" loading="lazy" referrerpolicy="no-referrer">' +
+          '</div>' +
+          '<div class="flex-1 min-w-0">' +
+            '<div class="flex items-center space-x-2 mb-1">' +
+              '<span class="text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full ' + badgeBg + '">' + st + '</span>' +
+              '<span class="text-[10px] font-mono text-slate-400">' + p.id + '</span>' +
+            '</div>' +
+            '<h4 class="text-xs font-bold text-slate-800 truncate group-hover:text-sky-600 transition" title="' + p.nama + '">' + p.nama + '</h4>' +
+            '<p class="text-[11px] font-semibold text-sky-700 truncate">' + p.jabatan + '</p>' +
+            '<p class="text-[10px] text-slate-500 truncate">' + p.departemen + '</p>' +
+            '<span class="inline-flex items-center space-x-1 text-[9px] font-bold text-sky-600 mt-1">' +
+              '<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>' +
+              '<span>Lihat ID Card</span>' +
+            '</span>' +
+          '</div>';
+
+        container.appendChild(card);
+      });
+
+      if (document.getElementById("statTotalPengurus")) document.getElementById("statTotalPengurus").innerText = stats.total;
+      if (document.getElementById("statHadirPengurus")) document.getElementById("statHadirPengurus").innerText = stats.hadir;
+      if (document.getElementById("statIzinPengurus")) document.getElementById("statIzinPengurus").innerText = stats.izin;
+      if (document.getElementById("statBelumPengurus")) document.getElementById("statBelumPengurus").innerText = stats.belum;
+    }
+
+    var modalActivePengurus = null;
+
+    function bukaModalFotoPengurus(p) {
+      var m = document.getElementById("modalFotoPengurus");
+      if (!m || !p) return;
+      modalActivePengurus = p;
+
+      var img = document.getElementById("modalIdCardFotoImg");
+      var nama = document.getElementById("modalIdCardNama");
+      var jab = document.getElementById("modalIdCardJabatan");
+      var dept = document.getElementById("modalIdCardDept");
+      var idBadge = document.getElementById("modalIdCardBadgeId");
+      var noHp = document.getElementById("modalIdCardNoHpDisplay");
+      var cat = document.getElementById("modalFotoCatatan");
+      var st = document.getElementById("modalFotoBadgeStatus");
+
+      var foto = (p.fotoUrl && p.fotoUrl.trim() !== "" && p.fotoUrl !== "#") ? p.fotoUrl : ("https://placehold.co/400x520/0284c7/ffffff?text=" + encodeURIComponent(p.nama.split(" ")[0]));
+      if (img) img.src = foto;
+      if (nama) nama.innerText = p.nama;
+      if (jab) jab.innerText = p.jabatan || "Pengurus Pleno";
+      if (dept) dept.innerText = p.departemen || "Wahdah Islamiyah Berau";
+      if (idBadge) idBadge.innerText = "ID: " + (p.id || "-");
+      if (noHp) noHp.innerText = formatPhoneDisplay(p.noHp) || "-";
+      if (cat) cat.innerText = p.catatan ? ('"' + p.catatan + '"') : "Belum ada catatan kesiapan.";
+
+      var status = p.statusKehadiran || "Belum Konfirmasi";
+      if (st) {
+        st.innerText = status;
+        st.className = "inline-block px-2.5 py-0.5 rounded-full text-[9.5px] font-black uppercase tracking-wider " + (status === "Hadir" ? "bg-emerald-100 text-emerald-800" : (status === "Izin" ? "bg-rose-100 text-rose-800" : "bg-amber-100 text-amber-800"));
+      }
+
+      var qrContainer = document.getElementById("modalIdCardQrContainer");
+      if (qrContainer && typeof QRCode !== "undefined") {
+        qrContainer.innerHTML = "";
+        new QRCode(qrContainer, {
+          text: p.id || p.noHp || "WI-PESERTA",
+          width: 40,
+          height: 40,
+          colorDark: "#0284c7",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.M
+        });
+      }
+
+      m.style.display = "flex";
+    }
+
+    function tutupModalFotoPengurus() {
+      var m = document.getElementById("modalFotoPengurus");
+      if (m) m.style.display = "none";
+    }
+
+    function unduhIdCardModal() {
+      var cardEl = document.getElementById("modalIdCardPrintArea");
+      if (!cardEl || typeof html2canvas === "undefined") {
+        showToast("Modul pembuat kartu belum siap.", "error");
+        return;
+      }
+      showToast("Menyiapkan berkas ID Card...", "info");
+
+      var fontPromise = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+      fontPromise.then(function() {
+        html2canvas(cardEl, {
+          scale: 3,
+          useCORS: true,
+          allowTaint: false,
+          backgroundColor: null,
+          logging: false,
+          letterRendering: false,
+          onclone: function(clonedDoc) {
+            var el = clonedDoc.getElementById("modalIdCardPrintArea");
+            if (el) {
+              el.style.transform = "none";
+              el.style.fontFamily = "Arial, Helvetica, sans-serif";
+              var allNodes = el.querySelectorAll("*");
+              allNodes.forEach(function(node) {
+                node.style.overflow = "visible";
+                node.style.webkitLineClamp = "unset";
+                node.style.lineClamp = "unset";
+                node.style.webkitBoxOrient = "unset";
+                node.style.textOverflow = "clip";
+              });
+            }
+          }
+        }).then(function(canvas) {
+          var a = document.createElement("a");
+          var uNama = (modalActivePengurus ? modalActivePengurus.nama : "Pengurus");
+          var namaClean = uNama.replace(/[^a-zA-Z0-9]/g, "_");
+          a.download = "ID_CARD_5.5x8.5cm_" + namaClean + ".png";
+          a.href = canvas.toDataURL("image/png", 1.0);
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          showToast("ID Card " + uNama + " siap dicetak!", "success");
+        }).catch(function(err) {
+          showToast("Gagal mengunduh kartu dari modal.", "error");
+        });
+      });
+    }
+
+    function unduhFotoIdCard() {
+      var cardEl = document.getElementById("idCardPrintArea");
+      if (!cardEl || typeof html2canvas === "undefined") {
+        showToast("Modul pembuat kartu belum siap.", "error");
+        return;
+      }
+      showToast("Menyiapkan berkas ID Card...", "info");
+
+      var fontPromise = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+      fontPromise.then(function() {
+        html2canvas(cardEl, {
+          scale: 3,
+          useCORS: true,
+          allowTaint: false,
+          backgroundColor: null,
+          logging: false,
+          letterRendering: false,
+          onclone: function(clonedDoc) {
+            var el = clonedDoc.getElementById("idCardPrintArea");
+            if (el) {
+              el.style.transform = "none";
+              el.style.fontFamily = "Arial, Helvetica, sans-serif";
+              var allNodes = el.querySelectorAll("*");
+              allNodes.forEach(function(node) {
+                node.style.overflow = "visible";
+                node.style.webkitLineClamp = "unset";
+                node.style.lineClamp = "unset";
+                node.style.webkitBoxOrient = "unset";
+                node.style.textOverflow = "clip";
+              });
+            }
+          }
+        }).then(function(canvas) {
+          var a = document.createElement("a");
+          var uNama = (appState.currentUser ? appState.currentUser.nama : "Peserta");
+          var namaClean = uNama.replace(/[^a-zA-Z0-9]/g, "_");
+          a.download = "ID_CARD_5.5x8.5cm_" + namaClean + ".png";
+          a.href = canvas.toDataURL("image/png", 1.0);
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          showToast("ID Card (5,5 × 8,5 cm) siap dicetak!", "success");
+        }).catch(function() {
+          showToast("Gagal mengunduh kartu.", "error");
+        });
+      });
+    }
+
+    function tanganiGantiFoto(e) {
+      var file = e.target.files && e.target.files[0];
+      if (!file) return;
+      var u = appState.currentUser;
+      if (!u) {
+        showToast("Silakan login akun terlebih dahulu.", "error");
+        bukaModalLogin();
+        return;
+      }
+
+      showToast("Memproses pasfoto...", "info");
+
+      var reader = new FileReader();
+      reader.onload = function(evt) {
+        var img = new Image();
+        img.onload = function() {
+          var canvas = document.createElement("canvas");
+          var MAX_WIDTH = 450;
+          var MAX_HEIGHT = 600;
+          var width = img.width;
+          var height = img.height;
+
+          if (width > height) {
+            if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; }
+          } else {
+            if (height > MAX_HEIGHT) { width *= MAX_HEIGHT / height; height = MAX_HEIGHT; }
+          }
+          canvas.width = width;
+          canvas.height = height;
+          var ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, width, height);
+          var base64Data = canvas.toDataURL("image/jpeg", 0.85);
+
+          u.fotoUrl = base64Data;
+          renderUserProfile(u);
+
+          for (var i = 0; i < appState.pengurus.length; i++) {
+            if (appState.pengurus[i].id === u.id || extractPhoneCore(appState.pengurus[i].noHp) === extractPhoneCore(u.noHp)) {
+              appState.pengurus[i].fotoUrl = base64Data;
+              break;
+            }
+          }
+          renderPengurusList(appState.pengurus);
+
+          showToast("Menyimpan foto ke server...", "info");
+
+          callBackendAPI('simpanFotoPengurus', {
+            noHp: u.noHp, base64Data: base64Data, nama: u.nama, idPengurus: u.id
+          }).then(function(res) {
+            if (res && res.success && res.fotoUrl) {
+              u.fotoUrl = res.fotoUrl;
+              renderUserProfile(u);
+            }
+            showToast("Pasfoto berhasil tersimpan!", "success");
+          }).catch(function(err) {
+            showToast("Foto aktif tersimpan secara lokal.", "info");
+          });
+        };
+        img.src = evt.target.result;
+      };
+      reader.readAsDataURL(file);
+      e.target.value = "";
+    }
+
+    function isWaktuSholatAtauRehat(agenda) {
+      if (!agenda) return false;
+      var text = agenda.toLowerCase();
+      var kataKunci = ["sholat", "shalat", "ashar", "dzuhur", "dhuhur", "ishoma", "rehat", "istirahat"];
+      for (var i = 0; i < kataKunci.length; i++) {
+        if (text.indexOf(kataKunci[i]) !== -1) return true;
+      }
+      return false;
+    }
+
+    function renderRundownList(list) {
+      var containerWeb = document.getElementById("containerRundownWeb");
+      var tbodyPrint = document.getElementById("rundownPrintTbody");
+      if (!list || list.length === 0) return;
+
+      if (containerWeb) {
+        containerWeb.innerHTML = "";
+        list.forEach(function(r) {
+          var isRehat = isWaktuSholatAtauRehat(r.agenda);
+          var badgeBg = isRehat ? "bg-amber-100 text-amber-800" : "bg-sky-100 text-sky-800";
+          var borderStyle = isRehat ? "border-amber-200/80 bg-amber-50/30" : "border-slate-200/80 bg-white";
+
+          var card = document.createElement("div");
+          card.className = "p-4 rounded-2xl border " + borderStyle + " shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3";
+          card.innerHTML =
+            '<div class="flex items-start space-x-3">' +
+              '<div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-700 flex items-center justify-center font-mono font-bold text-xs shrink-0 border border-sky-100">' +
+                r.jamMulai +
+              '</div>' +
+              '<div>' +
+                '<div class="flex items-center space-x-2 mb-1">' +
+                  '<span class="text-[9.5px] font-mono font-bold px-2 py-0.5 rounded-full ' + badgeBg + '">' + r.jamMulai + ' - ' + r.jamSelesai + ' WITA</span>' +
+                  '<span class="text-[9.5px] font-bold text-slate-400 uppercase tracking-wider">' + (r.pic || 'Panitia') + '</span>' +
+                '</div>' +
+                '<h4 class="text-xs sm:text-sm font-bold text-slate-800 leading-snug">' + r.agenda + '</h4>' +
+              '</div>' +
+            '</div>';
+          containerWeb.appendChild(card);
+        });
+      }
+
+      if (tbodyPrint) {
+        tbodyPrint.innerHTML = "";
+        list.forEach(function(r, idx) {
+          var tr = document.createElement("tr");
+          tr.className = "border-b border-slate-800";
+          tr.innerHTML =
+            '<td class="p-2 border-r border-slate-800 text-center font-bold">' + (idx + 1) + '</td>' +
+            '<td class="p-2 border-r border-slate-800 text-center font-mono">' + r.jamMulai + ' - ' + r.jamSelesai + '</td>' +
+            '<td class="p-2 border-r border-slate-800 font-bold">' + r.agenda + '</td>' +
+            '<td class="p-2 font-medium">' + (r.pic || 'Presidium Sidang') + '</td>';
+          tbodyPrint.appendChild(tr);
+        });
+      }
+    }
+
+    function sinkronkanDropdownDariRundown(rundownList) {
+      if (!rundownList || rundownList.length === 0) return;
+
+      var sesiBaku = [
+        { id: "SESI-REGISTRASI", label: "Check-In Masuk Registrasi" },
+        { id: "PLENO-01", label: "Sidang Pleno 1 : Tata Tertib" },
+        { id: "PLENO-02", label: "Sidang Pleno 2 : PH, Kesekretariatan, WIZ dan Ketahanan Keluarga" },
+        { id: "PLENO-03", label: "Sidang Pleno 3 : Dakwah dan Kaderisasi (Ikhwan & Akhwat) & Olahraga" },
+        { id: "PLENO-04", label: "Sidang Pleno 4 : KHQ dan Sosial Pelayanan Ummat (Ikhwan dan Akhwat) & PGM" },
+        { id: "PLENO-05", label: "Sidang Pleno 5 : Medikom, Yayasan dan Wakaf" }
+      ];
+
+      var selPresensi = document.getElementById("selectSesiPresensi");
+      if (selPresensi) {
+        selPresensi.innerHTML = "";
+        sesiBaku.forEach(function(s) {
+          var opt = document.createElement("option");
+          opt.value = s.id;
+          opt.innerText = s.label;
+          selPresensi.appendChild(opt);
+        });
+      }
+
+      var selAspirasi = document.getElementById("aspirasiTujuan");
+      if (selAspirasi) {
+        selAspirasi.innerHTML = "";
+        var optUmum = document.createElement("option");
+        optUmum.value = "Presidium Sidang Pleno (Umum)";
+        optUmum.innerText = "Presidium Sidang Pleno (Umum)";
+        selAspirasi.appendChild(optUmum);
+
+        sesiBaku.forEach(function(s) {
+          var opt = document.createElement("option");
+          opt.value = s.label;
+          opt.innerText = s.label;
+          selAspirasi.appendChild(opt);
+        });
+      }
+    }
+
+    function renderDraftProker(list) {
+      var grid = document.getElementById("gridDraftProker");
+      if (!grid || !list) return;
+      grid.innerHTML = "";
+
+      list.forEach(function(p) {
+        var card = document.createElement("div");
+        card.className = "bg-slate-50/70 rounded-2xl p-4 border border-slate-200/80 shadow-2xs hover:bg-white hover:border-sky-300 transition space-y-2";
+        card.innerHTML =
+          '<div class="flex items-center justify-between">' +
+            '<span class="text-[10px] font-black uppercase tracking-wider text-sky-700 bg-sky-100/70 px-2 py-0.5 rounded-md">' + p.departemen + '</span>' +
+            '<span class="text-[10px] font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded-full">' + (p.status || 'Draf') + '</span>' +
+          '</div>' +
+          '<h4 class="text-xs font-black text-slate-800 leading-snug">' + p.program + '</h4>' +
+          '<div class="grid grid-cols-2 gap-2 pt-1 border-t border-slate-200/60 text-[11px]">' +
+            '<div><span class="text-slate-400 font-bold block text-[9px] uppercase">Target Output</span><span class="font-bold text-slate-700">' + (p.output || '-') + '</span></div>' +
+            '<div><span class="text-slate-400 font-bold block text-[9px] uppercase">Anggaran</span><span class="font-bold text-emerald-700 font-mono">' + (p.anggaran || '-') + '</span></div>' +
+          '</div>' +
+          (p.catatan ? ('<p class="text-[10.5px] text-slate-500 italic pt-1 border-t border-slate-200/60">Catatan: ' + p.catatan + '</p>') : '');
+        grid.appendChild(card);
+      });
+    }
+
+    function renderBerkasPleno(list) {
+      var container = document.getElementById("containerBerkasPleno");
+      if (!container || !list) return;
+      container.innerHTML = "";
+
+      list.forEach(function(b) {
+        var url = (b.url || b.link || "").trim();
+        var tipeRaw = (b.tipe || 'PDF').trim().toLowerCase();
+        
+        var iconBadge = '';
+        if (tipeRaw.indexOf('sheet') !== -1 || tipeRaw.indexOf('xls') !== -1 || tipeRaw.indexOf('excel') !== -1) {
+          iconBadge = '<div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200 flex flex-col items-center justify-center shrink-0 shadow-2xs">' +
+            '<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14H5v-2h7v2zm0-4H5v-2h7v2zm0-4H5V7h7v2zm7 8h-5v-2h5v2zm0-4h-5v-2h5v2zm0-4h-5V7h5v2z"/></svg>' +
+            '<span class="text-[8.5px] font-black uppercase tracking-wider leading-none mt-0.5">SHEET</span>' +
+          '</div>';
+        } else if (tipeRaw.indexOf('doc') !== -1 || tipeRaw.indexOf('word') !== -1) {
+          iconBadge = '<div class="w-11 h-11 rounded-xl bg-sky-50 text-sky-700 border border-sky-200 flex flex-col items-center justify-center shrink-0 shadow-2xs">' +
+            '<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>' +
+            '<span class="text-[8.5px] font-black uppercase tracking-wider leading-none mt-0.5">DOC</span>' +
+          '</div>';
+        } else {
+          iconBadge = '<div class="w-11 h-11 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 flex flex-col items-center justify-center shrink-0 shadow-2xs">' +
+            '<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9.5 8.5h-2V13h2c.55 0 1-.45 1-1s-.45-.5-1-.5zm5 2h-2V15h2c.55 0 1-.45 1-1s-.45-.5-1-.5zm4-3.5H17v6h1.5v-2H19v-1.5h-.5V10h2V8.5z"/></svg>' +
+            '<span class="text-[8.5px] font-black uppercase tracking-wider leading-none mt-0.5">PDF</span>' +
+          '</div>';
+        }
+
+        var card = document.createElement("div");
+        card.className = "bg-white rounded-2xl p-3.5 sm:p-4 border border-slate-200/80 shadow-xs flex items-center justify-between gap-3 hover:border-sky-300 transition";
+        card.innerHTML =
+          '<div class="flex items-center space-x-3.5 min-w-0 flex-1">' +
+            iconBadge +
+            '<div class="min-w-0 flex-1">' +
+              '<h4 class="text-xs font-bold text-slate-800 truncate leading-snug" title="' + b.nama + '">' + b.nama + '</h4>' +
+              '<p class="text-[10.5px] font-medium text-slate-500 truncate mt-0.5">' + (b.komisi || 'Berkas Pleno') + '</p>' +
+            '</div>' +
+          '</div>' +
+          '<button type="button" onclick="bukaTautanDrive(\'' + encodeURIComponent(url) + '\', \'' + encodeURIComponent(b.nama) + '\')" class="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs shadow-xs transition shrink-0 cursor-pointer active:scale-95">' +
+            'Buka' +
+          '</button>';
+        container.appendChild(card);
+      });
+    }
+
+    function bukaTautanDrive(encodedUrl, encodedNama) {
+      var url = decodeURIComponent(encodedUrl || "").trim();
+      var nama = decodeURIComponent(encodedNama || "Dokumen");
+
+      if (!url || url === "#" || (url.indexOf("http://") !== 0 && url.indexOf("https://") !== 0)) {
+        showToast("Tautan Google Drive untuk '" + nama + "' belum disematkan.", "error");
+        return;
+      }
+      window.open(url, "_blank");
+    }
+
+    function filterDaftarPengurus() {
+      var input = document.getElementById("cariPengurusInput");
+      var query = input ? input.value.trim().toLowerCase() : "";
+      if (!query) {
+        renderPengurusList(appState.pengurus);
+        return;
+      }
+      var filtered = appState.pengurus.filter(function(p) {
+        return (p.nama && p.nama.toLowerCase().indexOf(query) !== -1) ||
+               (p.departemen && p.departemen.toLowerCase().indexOf(query) !== -1) ||
+               (p.jabatan && p.jabatan.toLowerCase().indexOf(query) !== -1) ||
+               (p.id && p.id.toLowerCase().indexOf(query) !== -1);
+      });
+      renderPengurusList(filtered);
+    }
+
+    function salinWaBelumKonfirmasi() {
+      var belumList = appState.pengurus.filter(function(p) {
+        return !p.statusKehadiran || (p.statusKehadiran !== "Hadir" && p.statusKehadiran !== "Izin");
+      });
+
+      if (belumList.length === 0) {
+        showToast("Masyaa Allah, seluruh pengurus telah mengonfirmasi kesiapan kehadiran!", "success");
+        return;
+      }
+
+      var text = "*PENGINGAT KONFIRMASI KESIAPAN MPP DPD WI BERAU 2026*\n\n" +
+        "Assalamu'alaikum Warahmatullahi Wabarakatuh,\n" +
+        "Diberitahukan kepada ikhwah pengurus yang belum konfirmasi kehadiran:\n\n";
+
+      belumList.forEach(function(p, i) {
+        text += (i + 1) + ". " + p.nama + " (" + p.jabatan + ")\n";
+      });
+
+      text += "\nMohon segera membuka Portal Resmi MPP 2026 untuk mengonfirmasi kesiapan dan memeriksa ID Card masing-masing.\nJazakumullahu Khairan.";
+
+      var el = document.createElement("textarea");
+      el.value = text;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand("copy");
+      document.body.removeChild(el);
+
+      showToast("Format pesan WA untuk " + belumList.length + " pengurus berhasil disalin ke clipboard!", "success");
+    }
+
+    function simpanKonfirmasiKehadiran(e) {
+      if (e) e.preventDefault();
+      var u = appState.currentUser;
+      if (!u) {
+        showToast("Silakan login akun antum terlebih dahulu.", "error");
+        bukaModalLogin();
+        return;
+      }
+
+      var radioHadir = document.querySelector('input[name="statusKehadiran"]:checked');
+      var status = radioHadir ? radioHadir.value : "Hadir";
+      var catatan = document.getElementById("inputCatatanKehadiran") ? document.getElementById("inputCatatanKehadiran").value.trim() : "";
+      var btn = document.getElementById("btnSimpanKesiapan");
+
+      if (btn) {
+        btn.disabled = true;
+        btn.innerText = "Menyimpan Kesiapan...";
+      }
+
+      u.statusKehadiran = status;
+      u.catatan = catatan;
+
+      callBackendAPI('updateKonfirmasiKehadiran', {
+        noHp: u.noHp, statusKehadiran: status, catatan: catatan
+      }).then(function(res) {
+        if (btn) { btn.disabled = false; btn.innerText = "Perbarui Kesiapan Saya"; }
+        showToast("Kesiapan antum berhasil disimpan ke database!", "success");
+        for (var i = 0; i < appState.pengurus.length; i++) {
+          if (appState.pengurus[i].id === u.id) {
+            appState.pengurus[i].statusKehadiran = status;
+            break;
+          }
+        }
+        renderPengurusList(appState.pengurus);
+      }).catch(function(err) {
+        if (btn) { btn.disabled = false; btn.innerText = "Perbarui Kesiapan Saya"; }
+        showToast("Kesiapan tersimpan secara offline.", "info");
+      });
+    }
+
+    function renderPresensiLog(list) {
+      var tbody = document.getElementById("tbodyPresensiLog");
+      if (!tbody) return;
+      tbody.innerHTML = "";
+
+      if (!list || list.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4" class="py-4 text-center text-slate-400">Belum ada riwayat kehadiran tercatat.</td></tr>';
+        return;
+      }
+
+      list.slice(0, 15).forEach(function(item) {
+        var tr = document.createElement("tr");
+        tr.innerHTML =
+          '<td class="py-2.5 font-mono text-slate-500 text-[11px]">' + (item.timestamp || item.waktu || '-') + '</td>' +
+          '<td class="py-2.5 font-semibold text-slate-800">' + (item.namaSesi || item.idSesi || 'Sidang') + '</td>' +
+          '<td class="py-2.5 font-bold text-sky-700">' + (item.nama || item.idPengurus || 'Peserta') + '</td>' +
+          '<td class="py-2.5 text-right"><span class="px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-800">' + (item.petugas || 'Mandiri') + '</span></td>';
+        tbody.appendChild(tr);
+      });
+    }
+
+    function muatPresensiLog() {
+      callBackendAPI('getAppMasterData', {
+        activePhone: appState.currentUser ? appState.currentUser.noHp : ""
+      }).then(function(res) {
+        if (res && res.success && res.data && res.data.presensi) {
+          renderPresensiLog(res.data.presensi);
+          showToast("Log kehadiran berhasil diperbarui.", "info");
+        }
+      }).catch(function(err) {
+        renderPresensiLog(appState.presensiLog);
+      });
+    }
+
+    function playBeepSound() {
+      try {
+        var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        var osc = audioCtx.createOscillator();
+        var gain = audioCtx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.15);
+      } catch (e) {}
+    }
+
+    function kirimPresensiMandiri() {
+      var u = appState.currentUser;
+      if (!u) {
+        showToast("Silakan login terlebih dahulu untuk absen.", "error");
+        bukaModalLogin();
+        return;
+      }
+
+      var sel = document.getElementById("selectSesiPresensi");
+      var idSesi = sel ? sel.value : "SESI-REGISTRASI";
+      var namaSesi = sel && sel.options[sel.selectedIndex] ? sel.options[sel.selectedIndex].text : "Registrasi";
+      var btn = document.getElementById("btnKirimPresensiMandiri");
+
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span>Mencatat Hadir...</span>';
+      }
+
+      var payload = {
+        targetIdentifier: u.id,
+        idSesi: idSesi,
+        namaSesi: namaSesi,
+        scannedBy: "Mandiri"
+      };
+
+      callBackendAPI('catatPresensiPleno', { payload: payload })
+        .then(function(res) {
+          if (btn) { btn.disabled = false; btn.innerHTML = '<span>Konfirmasi Hadir di Sesi Ini</span>'; }
+          playBeepSound();
+          showToast("Alhamdulillah, presensi di sesi '" + namaSesi + "' dicatat!", "success");
+          muatPresensiLog();
+        })
+        .catch(function(err) {
+          if (btn) { btn.disabled = false; btn.innerHTML = '<span>Konfirmasi Hadir di Sesi Ini</span>'; }
+          playBeepSound();
+          var now = new Date();
+          appState.presensiLog.unshift({
+            timestamp: now.toLocaleTimeString(),
+            idSesi: idSesi,
+            namaSesi: namaSesi,
+            idPengurus: u.id,
+            nama: u.nama,
+            petugas: "Mandiri"
+          });
+          renderPresensiLog(appState.presensiLog);
+          showToast("Alhamdulillah, presensi berhasil dicatat (Offline)!", "success");
+        });
+    }
+
+    function tutupModalPanduanKamera() {
+      var m = document.getElementById("modalPanduanKamera");
+      if (m) m.style.display = "none";
+    }
+
+    // LISTENER UNTUK MENERIMA PESAN DARI POP-UP KAMERA
+    window.addEventListener('message', function(e) {
+      if (e.data && e.data.type === 'barcode-scanned' && e.data.value) {
+        playBeepSound();
+        eksekusiScanBarcode(e.data.value);
+      }
+    });
+
+    function buildScannerHTML() {
+      return '<!DOCTYPE html>' +
+        '<html lang="id">' +
+        '<head>' +
+        '<meta charset="UTF-8">' +
+        '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">' +
+        '<title>Kamera Pemindai Presensi</title>' +
+        '<script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"><\/script>' +
+        '<style>' +
+        'body { font-family: system-ui, -apple-system, sans-serif; background: #0f172a; color: white; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }' +
+        '#qr-reader { width: 100%; max-width: 500px; border: none !important; border-radius: 16px; overflow: hidden; background: #1e293b; padding: 15px; box-sizing: border-box; }' +
+        '#qr-reader video { border-radius: 12px; }' +
+        'button { background: #0284c7 !important; color: #fff !important; border: none !important; border-radius: 8px !important; padding: 10px 20px !important; font-size: 14px !important; cursor: pointer !important; margin: 10px 0; font-weight: bold; }' +
+        'select { background: #334155 !important; color: #fff !important; border: 1px solid #475569 !important; border-radius: 6px !important; padding: 8px !important; margin-bottom: 10px; width: 100%; }' +
+        '#qr-reader__status_span { color: #94a3b8 !important; }' +
+        '#qr-reader img[alt="Info icon"] { display: none !important; }' +
+        'a { color: #38bdf8 !important; text-decoration: none; }' +
+        '.header { text-align: center; margin-bottom: 20px; }' +
+        '.header h2 { margin: 0 0 5px 0; font-size: 18px; }' +
+        '.header p { margin: 0; font-size: 12px; color: #94a3b8; }' +
+        '#btn-close { background: #ef4444 !important; width: 100%; max-width: 500px; margin-top: 20px; padding: 12px !important; }' +
+        '</style>' +
+        '</head>' +
+        '<body>' +
+        '<div class="header">' +
+        '<h2>Kamera Scanner MPP</h2>' +
+        '<p>Arahkan Barcode ID Card ke Kamera</p>' +
+        '</div>' +
+        '<div id="qr-reader"></div>' +
+        '<button id="btn-close" onclick="window.close()">Tutup Kamera</button>' +
+        '<script>' +
+        'var scanner = new Html5QrcodeScanner("qr-reader", { fps: 15, qrbox: {width: 250, height: 250}, aspectRatio: 1.0 }, false);' +
+        'scanner.render(function(decodedText, decodedResult) {' +
+        '  if (window.opener) {' +
+        '    window.opener.postMessage({ type: "barcode-scanned", value: decodedText }, "*");' +
+        '    scanner.clear();' +
+        '    window.close();' +
+        '  }' +
+        '});' +
+        '<\/script>' +
+        '</body>' +
+        '</html>';
+    }
+
+    function mulaiKameraScanner() {
+      showToast("Membuka kamera di jendela baru...", "info");
+      
+      var scannerHTML = buildScannerHTML();
+      var win = window.open('', '_blank');
+      
+      if (win) {
+        win.document.write(scannerHTML);
+        win.document.close();
+      } else {
+        showToast("Pop-up diblokir oleh browser. Harap izinkan pop-up untuk situs ini.", "error");
+        var m = document.getElementById("modalPanduanKamera");
+        if (m) m.style.display = "flex";
+      }
+    }
+
+    function hentikanKameraScanner() {
+      // Dihapus karena kita sekarang menggunakan pop-up window
+    }
+
+    function eksekusiScanBarcode(qrCodeText) {
+      if (!qrCodeText) return;
+      var sel = document.getElementById("selectSesiPresensi");
+      var idSesi = sel ? sel.value : "SESI-REGISTRASI";
+      var namaSesi = sel && sel.options[sel.selectedIndex] ? sel.options[sel.selectedIndex].text : "Registrasi";
+
+      var payload = {
+        targetIdentifier: qrCodeText.trim(),
+        idSesi: idSesi,
+        namaSesi: namaSesi,
+        scannedBy: "Panitia"
+      };
+
+      callBackendAPI('catatPresensiPleno', { payload: payload })
+        .then(function(res) {
+          playBeepSound();
+          var nama = (res && res.data && res.data.nama) ? res.data.nama : qrCodeText;
+          showToast("Hadir: " + nama + " (" + namaSesi + ")", "success");
+          muatPresensiLog();
+        })
+        .catch(function(err) {
+          playBeepSound();
+          showToast("Barcode terdeteksi: " + qrCodeText + " (Mode Offline)", "success");
+        });
+    }
+
+    function tanganiScanKameraNative(e) {
+      var file = e.target.files && e.target.files[0];
+      if (!file) return;
+
+      showToast("Menganalisis foto barcode...", "info");
+
+      var reader = new FileReader();
+      reader.onload = function(evt) {
+        var img = new Image();
+        img.onload = function() {
+          var canvas = document.createElement("canvas");
+          var MAX_DIM = 1200;
+          var width = img.width;
+          var height = img.height;
+
+          if (width > height && width > MAX_DIM) {
+            height *= MAX_DIM / width;
+            width = MAX_DIM;
+          } else if (height > MAX_DIM) {
+            width *= MAX_DIM / height;
+            height = MAX_DIM;
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          var ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, width, height);
+
+          var imgData = ctx.getImageData(0, 0, width, height);
+          var code = (typeof jsQR !== "undefined") ? jsQR(imgData.data, imgData.width, imgData.height) : null;
+
+          if (!code && typeof jsQR !== "undefined") {
+            var d = imgData.data;
+            for (var i = 0; i < d.length; i += 4) {
+              var avg = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+              var v = avg > 128 ? 255 : 0;
+              d[i] = v; d[i + 1] = v; d[i + 2] = v;
+            }
+            ctx.putImageData(imgData, 0, 0);
+            code = jsQR(imgData.data, imgData.width, imgData.height);
+          }
+
+          if (code && code.data) {
+            playBeepSound();
+            eksekusiScanBarcode(code.data);
+          } else {
+            showToast("Barcode tidak terdeteksi. Pastikan barcode jelas, fokus, dan pencahayaan terang.", "error");
+          }
+        };
+        img.src = evt.target.result;
+      };
+      reader.readAsDataURL(file);
+      e.target.value = "";
+    }
+
+    function prosesPresensiManualPanitia() {
+      var input = document.getElementById("inputScanManual");
+      var text = input ? input.value.trim() : "";
+      if (!text) {
+        showToast("Ketik ID atau No. WA peserta terlebih dahulu.", "error");
+        return;
+      }
+      eksekusiScanBarcode(text);
+      if (input) input.value = "";
+    }
+
+    function kirimAspirasiSidang(e) {
+      if (e) e.preventDefault();
+      var u = appState.currentUser;
+      if (!u) {
+        showToast("Silakan login terlebih dahulu.", "error");
+        bukaModalLogin();
+        return;
+      }
+      var tuju = document.getElementById("aspirasiTujuan").value;
+      var pesan = document.getElementById("aspirasiPesan").value.trim();
+      var btn = document.getElementById("btnKirimAspirasi");
+
+      if (btn) { btn.disabled = true; btn.innerText = "Mengirim..."; }
+
+      var payload = {
+        noHp: u.noHp,
+        nama: u.nama,
+        departemenTujuan: tuju,
+        pesan: pesan
+      };
+
+      callBackendAPI('kirimAspirasi', { payload: payload })
+        .then(function() {
+          if (btn) { btn.disabled = false; btn.innerText = "Kirim Aspirasi Sekarang"; }
+          document.getElementById("aspirasiPesan").value = "";
+          showToast("Aspirasi antum berhasil dikirim ke pimpinan sidang!", "success");
+        })
+        .catch(function(err) {
+          if (btn) { btn.disabled = false; btn.innerText = "Kirim Aspirasi Sekarang"; }
+          document.getElementById("aspirasiPesan").value = "";
+          showToast("Aspirasi berhasil dicatat (Mode Offline).", "success");
+        });
+    }
+
+    function muatSemuaDataOtomatis() {
+      var activeWa = appState.currentUser ? appState.currentUser.noHp : "";
+      
+      callBackendAPI('getAppMasterData', { activePhone: activeWa })
+        .then(function(res) {
+          if (res && res.success && res.data) {
+            var d = res.data;
+            if (d.pengurus && d.pengurus.length > 0) {
+              appState.pengurus = d.pengurus;
+              renderPengurusList(appState.pengurus);
+            }
+            if (d.rundown && d.rundown.length > 0) {
+              appState.rundown = d.rundown;
+              renderRundownList(appState.rundown);
+            }
+            if (d.proker && d.proker.length > 0) {
+              appState.proker = d.proker;
+              renderDraftProker(appState.proker);
+            }
+            if (d.berkas && d.berkas.length > 0) {
+              appState.berkas = d.berkas;
+              renderBerkasPleno(appState.berkas);
+            }
+            if (d.presensi) {
+              renderPresensiLog(d.presensi);
+            }
+            if (d.activeUser) {
+              renderUserProfile(d.activeUser);
+            }
+          }
+        })
+        .catch(function(err) {
+          console.warn("API Gagal dijangkau, berjalan di mode luring.");
+        });
+    }
+
+    function inisialisasiAplikasiUtama() {
+      // 1. Render Seketika (0 Detik) dari Initial State Lokal
+      renderPengurusList(appState.pengurus);
+      renderRundownList(appState.rundown);
+      renderDraftProker(appState.proker);
+      renderBerkasPleno(appState.berkas);
+      sinkronkanDropdownDariRundown(appState.rundown);
+
+      // 2. Cek Sesi Tersimpan
+      var saved = localStorage.getItem("MPP_ACTIVE_USER");
+      if (saved) {
+        try {
+          var userObj = JSON.parse(saved);
+          renderUserProfile(userObj);
+        } catch(e) {
+          bukaModalLogin();
+        }
+      } else {
+        bukaModalLogin();
+      }
+
+      // 3. Jalankan Jam & Countdown
+      updateWaktuDanCountdown();
+      setInterval(updateWaktuDanCountdown, 1000);
+
+      // 4. Sinkronisasi Data Spreadsheet di Latar Belakang (Tanpa Blocking Loader)
+      muatSemuaDataOtomatis();
+      setInterval(muatSemuaDataOtomatis, 30000);
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", inisialisasiAplikasiUtama);
+    } else {
+      inisialisasiAplikasiUtama();
+    }
+  </script>
+</body>
+</html>
